@@ -1,6 +1,6 @@
-# Nexthink Chrome Plugin
+# Nexthink Browser Plugin
 ## Description
-This is a Chrome plugin that allows users to connect to a Nexthink Engine and then gather data from it.
+This is a Chrome and Firefox plugin that allows users to connect to a Nexthink Engine and then gather data from it.
 Once connected, the plugin retrieves the names of all devices stored in the Engine.
 If the URL is in the whitelist the plugin will next search for device names in the current tab.
 Subsequently, the user can display a floating box with the device data by hovering the mouse over the device name in the page.
