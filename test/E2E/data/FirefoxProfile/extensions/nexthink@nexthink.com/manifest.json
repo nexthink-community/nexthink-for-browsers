@@ -4,7 +4,7 @@
     "name": "Nexthink Plugin",
     "description": "This plugin once connected to your Nexthink Engine allow you to get data about the device in your current tab in real time.",
     "version": "0.1.0",
-    "options_page": "options/options.html",
+    "options_page": "options.html",
 
     "background": {
         "scripts": ["background/background.js"]

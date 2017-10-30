@@ -159,7 +159,7 @@ function setContextMenu(inWhitelist) {
         actualBrowser.contextMenus.create({
             title: "Sign in",
             contexts: ["browser_action"],
-            onclick: function () { actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options/options.html")}); }
+            onclick: function () { actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options.html")}); }
         });
     } else {
         if (inWhitelist !== undefined) {
@@ -195,7 +195,7 @@ function setContextMenu(inWhitelist) {
         actualBrowser.contextMenus.create({
             title: "Options",
             contexts: ["browser_action"],
-            onclick: function () { actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options/options.html")}); }
+            onclick: function () { actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options.html")}); }
         });
     }
 }
@@ -506,8 +506,8 @@ function setListener() {
         actualBrowser.tabs.query({ active: true, windowId: actualBrowser.windows.WINDOW_ID_CURRENT },
             function (tabsArray) {
                 if (!connected) {
-                    if (tabsArray[0].url !== actualBrowser.extension.getURL("options/options.html")) {
-                        actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options/options.html")});
+                    if (tabsArray[0].url !== actualBrowser.extension.getURL("options.html")) {
+                        actualBrowser.tabs.create({url: actualBrowser.extension.getURL("options.html")});
                     }
                 } else {
                     if (!isUrlRefused(tabsArray[0].url)) {

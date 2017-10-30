@@ -618,7 +618,7 @@ window.onload = function() {
      */
     function OpenOptions() {
         BrowserAdapter(actualBrowser).tabs.create({
-            url: BrowserAdapter(actualBrowser).extension.getURL("options/options.html")
+            url: BrowserAdapter(actualBrowser).extension.getURL("options.html")
         })
     }
 
