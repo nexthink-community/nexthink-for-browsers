@@ -19,7 +19,7 @@ Subsequently, the user can display a floating box with the device data by hoveri
 
 ## Installation
 ### Firefox: 
-Store page: https://addons.mozilla.org/en-GB/firefox/addon/nexthink-for-firefox/
+Store page: https://addons.mozilla.org/addon/nexthink-for-firefox/
 
 For debugging/development, go to `about:debugging` and select `Load Temporary Add-on`. 
 Select `manifest.json` found in `src/`.
