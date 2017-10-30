@@ -1,0 +1,197 @@
+body {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 80%;
+    width: 300px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background: url("./../img/login-bg.jpg");
+    margin: auto !important;
+    text-align: center;
+    color: white !important;
+}
+
+input {
+    width: 200px;
+}
+
+input[type='checkbox'] {
+    width: unset;
+}
+
+button {
+    width: 80px;
+    color: black !important;
+    /*margin-bottom: 10px;*/
+}
+
+#info{
+    font-size: 20px;
+}
+
+#apiConnection {
+    width: 200px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+#apiConnection>div {
+    width: 200px;
+    /*padding-bottom: 10px;*/
+}
+
+#apiConnection>div>p {
+    margin-bottom: 5px;
+}
+
+#connectionMessage{
+    width: inherit;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+#noScores, #whitelistInfo{
+    display: none;
+    color: red;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.engine>input {
+    display: inline-flex;
+}
+
+.engine>#enginePort {
+    width: 40px;
+    float: right;
+}
+
+#engineMessage{
+    width: inherit;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+#devices{
+    display: none;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#deviceList{
+    overflow-y: scroll;
+    max-height: 250px;
+    min-height: 125px;
+    display: block;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+#deviceList>tbody>tr td:first-child {
+    width: 300px;
+}
+
+#deviceControls{
+    margin-top: 5px;
+}
+
+#deviceControls>button{
+    /*float: left;*/
+    width: 120px;
+    display: inline-grid;
+}
+
+#searchDevice{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#searchDevice input{
+    width: 160px;
+}
+
+.otherControls {
+    margin-bottom: 5px;
+}
+
+.otherControls button {
+    float: left;
+    width: 120px;
+}
+
+.otherControls button:first-child{
+    margin-right: 2px;
+}
+
+.otherControls button:last-child{
+    margin-left: 2px;
+}
+
+#links{
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+#logout{
+    display: none;
+    margin: auto;
+    width: -webkit-fill-available !important;
+    width: -moz-available !important;
+}
+
+.whitelistControls{
+    margin-bottom: 5px;
+}
+
+.whitelistControls button{
+    width: -webkit-fill-available;
+    width: -moz-available;
+}
+
+#removeFromWhitelist{
+    display: none;
+}
+
+#dataPopup{
+    position: relative;
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: 60px;
+    max-width: 290px;
+}
+
+#dataPopup>table{
+    width: unset;
+    display: table !important;
+}
+
+input{
+    color: black !important;
+}
+
+#dataPopup tfoot tr{
+    height: 12px;
+}
+
+.BOX985334b4-a808-4abc-b4e3-f34b83a747fe{
+    text-decoration: none;
+}
+
+.BOX985334b4-a808-4abc-b4e3-f34b83a747fe>span>table{
+    width: -webkit-fill-available;
+    width: -moz-available;
+    text-align: left;
+}
+
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(10, 10, 10, 0.84);
+    -webkit-border-radius: 50px;
+}
+
+*::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+    background: rgba(0,0,0,0.05);
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nexthink Plugin</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="../src/jsaes.js"></script>
+    <script src="../src/aes.js"></script>
+    <script src="../src/browserAdapter.js"></script>
+    <script src="../src/nexthink.js"></script>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="../inject/box.css">
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <link rel="stylesheet" type="text/css" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="info">
+        <h3 id="info" style="display:none"></h3>
+    </div>
+
+    <div id="noScores">
+        No score or device properties set in option, the Plugin will not display any device data.
+    </div>
+
+    <div id="whitelistInfo"></div>
+
+    <div id="devices">
+        <div id="devicesTitle">Devices</div>
+        <table id="deviceList">
+            <tbody></tbody>
+        </table>
+        <div id="searchDevice">
+            <input type="text" placeholder="Device Name" id="deviceName">
+            <button type="button" name="searchDeviceName" id="searchDeviceName" class="btn btn-xs btn-default">Search</button>
+        </div>
+
+        <div id="deviceControls">
+            <button type="button" name="rescanPage" id="rescanPage" class="btn btn-xs btn-default">Rescan the page</button>
+            <button type="button" name="exportToCsv" id="exportToCsv" class="btn btn-xs btn-default">Export to CSV</button>
+        </div>
+    </div>
+
+    <div id="apiConnection">
+        <div class="engine">
+            <p>Engine:</p>
+            <input type="text" id="engineHostname" value="" placeholder="Hostname">
+            <div id="connectionMessage"></div>
+        </div>
+
+        <div class="login">
+            <p>Login:</p>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <input type="checkbox" id="savePassword" checked>
+            <label for="savePassword">Save password</label>
+            <div id="engineMessage" class="center"></div>
+        </div>
+
+        <div id="loginMessage"></div>
+
+        <button type="button" id="connection" class="btn btn-xs btn-default">Log in</button>
+    </div>
+
+    <div id="links">
+        <div class="whitelistControls row">
+            <button type="button" name="addToWhitelist" id="addToWhitelist" class="btn btn-xs btn-default">Add to whitelist</button>
+            <button type="button" name="removeFromWhitelist" id="removeFromWhitelist" class="btn btn-xs btn-default">Remove from whitelist</button>
+        </div>
+
+        <div class="otherControls row">
+            <button type="button" name="openFinder" id="openFinder" class="btn btn-xs btn-default">Finder</button>
+            <button type="button" name="options" id="options" class="btn btn-xs btn-default">Options</button>
+        </div>
+        <div class="row">
+            <button type="button" name="logout" id="logout" class="btn btn-xs btn-default">Logout</button>
+        </div>
+    </div>
+
+    <script src="../dist/jquery-3.2.1.min.js"></script>
+    <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Search Device</title>
+        <script src="../src/jsaes.js"></script>
+        <script src="../src/aes.js"></script>
+        <script src="../src/browserAdapter.js"></script>
+        <script src="../src/xml2json.min.js"></script>
+        <script src="search.js"></script>
+        <script src="../inject/box.js"></script>
+        <link rel="stylesheet" type="text/css" href="../inject/box.css">
+        <style>
+            body{
+                margin: 0px;
+            }
+            #dataPopup{
+                max-width: -moz-available !important;
+                max-width: -webkit-fill-available !important;
+                width: -moz-available !important;
+                width: -webkit-fill-available !important;
+            }
+            #dataPopup>table{
+                background-image: url("../img/logo.png") !important;
+                display: inline-table !important;
+                width: -moz-available !important;
+            }
+            #dataPopup tbody{
+                height: unset !important;
+                margin: auto !important;
+                max-height: unset !important;
+                min-height: 200px !important;
+                overflow: unset !important;
+                width: -moz-max-content !important;
+                width: max-content !important;
+            }
+            div.dataPopupTab > .tabLinks{
+                max-width: -webkit-fill-available !important;
+                max-width: -moz-available !important;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <div id="content">
+            <h1 id="deviceName" align="center"></h1>
+            <div id="dataPopup" style="display: block; max-height:unset;">
+
+            </div>
+        </div>
+    </body>
+</html>

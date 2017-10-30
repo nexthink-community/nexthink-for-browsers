@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Options - Nexthink Plugin</title>
+    <script src="lib/jsaes.js"></script>
+    <script src="lib/aes.js"></script>
+    <script src="lib/browserAdapter.js"></script>
+    <script src="lib/nexthink.js"></script>
+    <script src="options.js"></script>
+    <link rel="stylesheet" type="text/css" href="options.css">
+    <link rel="stylesheet" type="text/css" href="dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+    <style media="screen">
+        table.score table {
+            margin-left: 20px;
+        }
+
+        .headerNoTopSpace {
+            margin-top: 0px;
+            padding-top: 0px;
+            font-weight: bold !important;
+        }
+
+        .hideButton {
+            display: unset !important;
+            float: right !important;
+            width: unset !important;
+        }
+
+        #thresholds {
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        table.score #root {
+            text-decoration: underline;
+        }
+
+        table.score tr td:first-child {
+            display: inline-flex;
+        }
+
+        table.score tr td:last-child {
+            display: block;
+            float: left;
+            width: -webkit-fill-available;
+            width: -moz-available;
+        }
+
+        table.score table {
+            width: -webkit-fill-available;
+            width: -moz-available;
+        }
+
+        table.score tr {
+            vertical-align: -webkit-baseline-middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="row title"><span>Connection</span></div>
+        <div class="row" id="connection">
+
+            <div class="col-md-6 col-lg-6 col-sm-6 login">
+                <h5><b>Nexthink API (NXQL)</b></h5>
+                <input type="text" class="form-control" id="engineHostname" placeholder="hostname:port">
+                <input type="text" class="form-control" id="username" placeholder="username">
+                <input type="password" class="form-control" id="password" placeholder="password">
+
+                <button type="button" id="signIn" class="button btn btn-sm btn-default">Sign in</button>
+                <button type="button" id="signOut" class="button btn btn-sm btn-default">Sign out</button>
+                <div id="loginMessage" style="font-style: italic;"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-6 finder-options">
+                <h5><b>Nexthink Portal URL</b></h5>
+                <input type="text" class="form-control" id="finderHostname" placeholder="https://">
+                <div style="padding-top: 5px; color:#ccc;"><i>To be used by Nexthink Finder</i></div>
+                <div id="finderMessage"></div>
+            </div>
+        </div>
+
+        <div class="row title"><span>Device Properties</span></div>
+        <div class="row" id="properties">
+            <div class="col-md-6 col-lg-6 col-sm-6 deviceInfos">
+                <div id="deviceInfoMessage"></div>
+                <div class="deviceInfoContainer">
+                    <table id="deviceInfoList" class="table">
+                        <tbody>
+                            <tr id="empty"><td></td></tr>
+                            <tr id="empty"><td></td></tr>
+                            <tr id="empty"><td></td></tr>
+                        </tbody>
+                    </table>
+                    <span id="upProperty" class="rightPanel up"></span>
+                    <span id="downProperty" class="rightPanel down"></span>
+                    <span id="deleteProperty" class="rightPanel delete"></span>
+                </div>
+                <input name="deviceInfo" id="deviceInfo" placeholder="Property name" class="form-control">
+                <button type="button" id="addDeviceInfo" class="button btn btn-sm btn-default rightPanel">Add property</button>
+            </div>
+        </div>
+
+        <div class="row title"><span>Device Scores</span></div>
+        <div class="row" id="scores">
+            <div class="col-md-6 col-lg-6 col-sm-6 scores">
+                <div class="deviceScoreContainer">
+                    <table id="deviceScoreList" class="table"><tbody></tbody></table>
+                    <span id="upScore" class="rightPanel up"></span>
+                    <span id="downScore" class="rightPanel down"></span>
+                    <span id="deleteScore" class="rightPanel delete"></span>
+                </div>
+                <input type="file" id="scoreFile" style="display: none;" accept=".xml">
+                <button type="button" id="loadScoreFile" class="button btn btn-sm btn-default">Import score</button>
+                <div id="scoreFileMessage" style="font-style: italic;"></div>
+            </div>
+        </div>
+
+        <div class="row title"><span></span></div>
+        <div class="row">
+            <button type="button" id="loadConfigFile" class="button btn btn-sm btn-default">Import configuration</button>
+            <button type="button" id="createConfigFile" class="button btn btn-sm btn-default">Export configuration</button>
+            <div id="configFileMessage" style="font-style: italic;"></div>
+            <input type="file" id="localConfigFile" accept=".json,text/plain" style="display: none;">
+        </div>
+
+
+    </div>
+
+    <script src="dist/jquery-3.2.1.min.js"></script>
+    <script src="dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

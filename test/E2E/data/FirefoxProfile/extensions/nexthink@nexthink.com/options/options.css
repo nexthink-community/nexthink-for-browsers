@@ -1,0 +1,147 @@
+body{
+    background: url("./../img/login-bg.jpg");
+    margin: auto;
+    font-size: 12px !important;
+}
+
+.content{
+    width: 900px;
+    text-align: left;
+    background-color: white;
+    margin: auto;
+    padding: 10px 0px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.content>div{
+    margin: 0px 5px;
+    padding: 5px 20px;
+}
+
+.content p{
+    font-weight: bold;
+}
+
+.content table{
+    width: 100%;
+    margin: auto;
+}
+
+.content textarea{
+    /*margin-top: 20px;*/
+    padding: 1px;
+    width: 365px;
+}
+
+
+#loginMessage, #finderMessage{
+    float: left;
+    margin-top: 2px;
+}
+
+#engine, #login, #finder{
+    float: left;
+    padding: 0px 5px;
+}
+
+#score, #deviceInfo{
+    width: -webkit-fill-available;
+    width: -moz-available;
+    resize: vertical;
+    max-height: 50px;
+    height: 50px;
+}
+
+#scoreList tr td:first-child{
+    width: 270px;
+}
+
+#deviceInfoList tr td:first-child,
+#whitelistItems tr td:first-child,
+#engines tr td:first-child{
+    width: 300px;
+}
+
+#scoreList tr td:last-child,
+#deviceInfoList tr td:last-child,
+#whitelistItems tr td:last-child,
+#engines tr td:last-child {
+    width: 65px;
+}
+
+#deviceInfoList tr td:first-child{
+    text-transform: capitalize;
+}
+
+#saveConfigMessage, #loadConfigMessage{
+    height: 20px;
+}
+
+#whitelistItems tbody>tr td:first-child,
+#engines tbody>tr td:first-child {
+    width: 350px;
+}
+
+#whitelistItems input,
+#engines input{
+    width: 340px;
+}
+
+#addWhitelistURL{
+    width: 50px;
+}
+
+#removeAllScores, #removeFromWhitelist, #removeAllSites, #removeAllDeviceInfo{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#config fieldset{
+    height: 250px;
+}
+
+
+#config button,
+#connection button,
+#engines tfoot button{
+    bottom: 5px;
+    width: 400px;
+    left: 10px;
+}
+
+fieldset{
+    min-height: 150px;
+}
+
+input[type="file"]{
+    width: 100%;
+}
+
+.button{
+    width: -webkit-fill-available;
+    width: -moz-available;
+    margin-top: 15px;
+}
+
+table{
+    margin-top: 5px !important;
+}
+
+h2{
+    font-size: 20px !important;
+}
+
+.btn-bs-file{
+    position:relative;
+}
+.btn-bs-file input[type="file"]{
+    position: absolute;
+    top: -9999999;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    width:0;
+    height:0;
+    outline: none;
+    cursor: inherit;
+}

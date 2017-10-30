@@ -1,0 +1,204 @@
+{
+    "bold": false,
+    "deviceOptions": ["name", "last_seen"],
+    "engineHostname": "192.168.5.5:1671",
+    "finderHost": "192.168.5.5",
+    "finderPort": "443",
+    "italic": false,
+    "scoreTreeList": {
+        "Device compliance": {
+            "overall": "Device compliance/Device compliance",
+            "scores": [{
+                "children": [{
+                    "children": [{
+                        "scoreName": "Corporate antivirus"
+                    }, {
+                        "scoreName": "Antivirus RTP"
+                    }, {
+                        "scoreName": "Antivirus up-to-date"
+                    }],
+                    "scoreName": "Antivirus"
+                }, {
+                    "children": [{
+                        "scoreName": "Corporate antispyware"
+                    }, {
+                        "scoreName": "Antispyware RTP"
+                    }, {
+                        "scoreName": "Antispyware up-to-date"
+                    }],
+                    "scoreName": "Antispyware"
+                }, {
+                    "children": [{
+                        "scoreName": "Corporate firewall"
+                    }, {
+                        "scoreName": "Firewall RTP"
+                    }],
+                    "scoreName": "Firewall"
+                }],
+                "scoreName": "Protection"
+            }, {
+                "children": [{
+                    "children": [{
+                        "scoreName": "Corporate OS"
+                    }, {
+                        "scoreName": "OS activation"
+                    }, {
+                        "scoreName": "OS up-to-date"
+                    }, {
+                        "scoreName": "WMI"
+                    }],
+                    "scoreName": "Operating system"
+                }, {
+                    "children": [{
+                        "scoreName": "Local administrators"
+                    }, {
+                        "scoreName": "Administrator account"
+                    }, {
+                        "scoreName": "Guest account"
+                    }],
+                    "scoreName": "Privileges"
+                }],
+                "scoreName": "System"
+            }, {
+                "children": [{
+                    "children": [{
+                        "scoreName": "Corporate browser"
+                    }, {
+                        "scoreName": "Non corporate browser"
+                    }],
+                    "scoreName": "Browser"
+                }, {
+                    "children": [{
+                        "scoreName": "Blacklisted peer-to-peer binaries"
+                    }, {
+                        "scoreName": "Blacklisted cloud storage binaries"
+                    }, {
+                        "scoreName": "Other blacklisted binaries"
+                    }],
+                    "scoreName": "Blacklisted binaries"
+                }],
+                "scoreName": "Software"
+            }, {
+                "children": [{
+                    "scoreName": "Proxy"
+                }, {
+                    "scoreName": "Blacklisted domains"
+                }],
+                "scoreName": "Network"
+            }],
+            "thresholds": {
+                "bad": {
+                    "color": "yellow",
+                    "from": "6"
+                },
+                "critical": {
+                    "color": "red",
+                    "from": "0"
+                },
+                "good": {
+                    "color": "green",
+                    "from": "8"
+                }
+            }
+        },
+        "Device performance": {
+            "overall": "Device performance/Device performance",
+            "scores": [{
+                "children": [{
+                    "scoreName": "Resolution"
+                }, {
+                    "scoreName": "Number of monitors"
+                }],
+                "scoreName": "Display"
+            }, {
+                "children": [{
+                    "scoreName": "CPU"
+                }, {
+                    "scoreName": "Memory"
+                }, {
+                    "scoreName": "Disk throughput"
+                }],
+                "scoreName": "Hardware resources"
+            }, {
+                "children": [{
+                    "scoreName": "Failed web requests"
+                }, {
+                    "scoreName": "Connectivity"
+                }, {
+                    "scoreName": "Response time"
+                }],
+                "scoreName": "Network"
+            }, {
+                "children": [{
+                    "scoreName": "BSOD"
+                }, {
+                    "scoreName": "Hard reset"
+                }, {
+                    "scoreName": "WMI"
+                }],
+                "scoreName": "Device stability"
+            }, {
+                "children": [{
+                    "children": [{
+                        "scoreName": "Software crashes"
+                    }, {
+                        "scoreName": "Software freezes"
+                    }],
+                    "scoreName": "Software stability"
+                }, {
+                    "scoreName": "Number of packages"
+                }, {
+                    "scoreName": "Software age"
+                }],
+                "scoreName": "Software"
+            }, {
+                "children": [{
+                    "children": [{
+                        "scoreName": "Logon duration"
+                    }, {
+                        "scoreName": "Extended logon duration"
+                    }],
+                    "scoreName": "Logon speed"
+                }, {
+                    "scoreName": "Boot speed"
+                }],
+                "scoreName": "Startup"
+            }, {
+                "children": [{
+                    "children": [{
+                        "scoreName": "Non-system free space"
+                    }, {
+                        "children": [{
+                            "scoreName": "Percentage of free space"
+                        }, {
+                            "scoreName": "Absolute free space"
+                        }],
+                        "scoreName": "System free space"
+                    }],
+                    "scoreName": "Free space"
+                }, {
+                    "scoreName": "Health"
+                }],
+                "scoreName": "Storage"
+            }],
+            "thresholds": {
+                "bad": {
+                    "color": "yellow",
+                    "from": "6"
+                },
+                "critical": {
+                    "color": "red",
+                    "from": "0"
+                },
+                "good": {
+                    "color": "green",
+                    "from": "8"
+                }
+            }
+        }
+    },
+    "showFinderLink": true,
+    "underline": true,
+    "username": "admin",
+    "whitelist": ["localhost", "[PATH]/test/E2E/data"]
+}

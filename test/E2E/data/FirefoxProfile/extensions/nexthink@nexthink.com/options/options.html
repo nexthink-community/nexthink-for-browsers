@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Options - Nexthink Plugin</title>
+        <script src="../src/jsaes.js"></script>
+        <script src="../src/aes.js"></script>
+        <script src="../src/browserAdapter.js"></script>
+        <script src="../src/nexthink.js"></script>
+        <script src="options.js"></script>
+        <link rel="stylesheet" type="text/css" href="options.css">
+        <link rel="stylesheet" type="text/css" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+        <style media="screen">
+            table.score table {
+                margin-left: 20px;
+            }
+
+            .headerNoTopSpace{
+                margin-top: 0px;
+                padding-top: 0px;
+                font-weight: bold !important;
+            }
+
+            .hideButton {
+                display: unset !important;
+                float: right !important;
+                width: unset !important;
+            }
+
+            #thresholds{
+                text-align: center;
+                text-transform: capitalize;
+            }
+
+            table.score #root{
+                text-decoration: underline;
+            }
+
+            table.score tr td:first-child {
+                display: inline-flex;
+            }
+
+            table.score tr td:last-child {
+                display: block;
+                float: left;
+                width: -webkit-fill-available;
+                width: -moz-available;
+            }
+
+            table.score table {
+                width: -webkit-fill-available;
+                width: -moz-available;
+            }
+
+            table.score tr{
+                vertical-align: -webkit-baseline-middle;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <div class="row" data-toggle="collapse" href="#connection" id="connectionCollapse">
+                <h2>Connection settings</h2>
+            </div>
+            <div class="row panel-collapse collapse" id="connection">
+
+                <div class="col-md-6 col-lg-6 col-sm-6 login">
+                    <fieldset>
+                        <legend><h2>Login</h2></legend>
+
+                        <div id="login" style="margin-bottom: 15px;">
+                          <p>Username:</p>
+                          <input type="text" id="username" placeholder="Username">
+                        </div>
+                        <div id="loginMessage"></div>
+
+                        <div id="engine" style="margin-bottom: 15px;">
+                          <p>Engine:</p>
+                          <input type="text" id="engineHostname" value="" placeholder="Hostname">
+                        </div>
+
+                        <button type="button" id="saveLogin" class="button btn btn-xs btn-default">Save</button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-6 finder-options">
+                    <fieldset>
+                        <legend><h2>Finder</h2></legend>
+                        <div id="finder">
+                          <p>Finder:</p>
+                          <input type="text" id="finderHostname" placeholder="Hostname">
+                          <br />
+                          <label for="showFinderLink">Open Finder Link</label>
+                          <input type="checkbox" name="showFinderLink" id="showFinderLink">
+                        </div>
+                        <div id="finderMessage"></div>
+                        <button type="button" id="saveFinderOptions" class="button btn btn-xs btn-default">Save</button>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row" data-toggle="collapse" href="#popup" id="popupCollapse">
+                <h2>Popup settings</h2>
+            </div>
+            <div class="row panel-collapse collapse" id="popup">
+                <div class="col-md-6 col-lg-6 col-sm-6 scores">
+                    <fieldset id="scoreFieldset">
+                        <legend><h2>Score</h2></legend>
+
+                        <table id="scores">
+
+                        </table>
+                        <input type="file" id="scoreFile">
+                        <button type="button" id="loadScoreFile" class="button btn btn-xs btn-default">Load</button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-6 deviceInfos">
+                    <fieldset id="deviceInfosFieldset">
+                        <legend><h2>Device info</h2></legend>
+                        <div id="connectionMessage"></div>
+                        <div class="infos">
+                            <div><i>You can add multiple scores by separating them with a carrige return.</i></div>
+                        </div>
+
+                        <div id="deviceInfoMessage"></div>
+                        <table id="deviceInfoList">
+                            <thead>
+                                <tr><th colspan="2" id="deviceInfoHeader">Device info</th></tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <button type="button" name="removeAllDeviceInfo" id="removeAllDeviceInfo" class="btn btn-xs btn-danger">
+                                            Remove all
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <textarea name="deviceInfo" id="deviceInfo" rows="1" placeholder="Device Info Name"></textarea>
+                        <button type="button" id="addDeviceInfo" class="button btn btn-xs btn-default">Add</button>
+                    </fieldset>
+                </div>
+
+
+            </div>
+
+            <div class="row" data-toggle="collapse" href="#plugin" id="pluginCollapse">
+                <h2>Plugin settings</h2>
+            </div>
+            <div class="row panel-collapse collapse" id="plugin">
+                <div class="col-md-6 col-lg-6 col-sm-6 whitelist">
+                    <fieldset>
+                        <legend><h2>Whitelist:</h2></legend>
+                        <table id="whitelistItems">
+                            <thead>
+                                <tr><th colspan="2"><b>Sites</b></th></tr>
+                                <tr>
+                                    <th>
+                                        <input type="text" placeholder="URL" id="whitelistURL">
+                                    </th>
+                                    <th>
+                                        <button type="button" id="addWhitelistURL" class="btn btn-xs btn-default">Add</button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button type="button" id="removeAllSites" class="btn btn-xs btn-danger">Remove all</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-6 pluginOptions">
+                    <fieldset>
+                        <legend><h2>Plugin options:</h2></legend>
+                        <div class="deviceStyle">
+                            <h3 style="margin-top: 0px; margin-bottom: 0px;">Device-found style:</h3>
+                            <input type="checkbox" id="bold">
+                            <label for="bold">Bold</label>
+                            <input type="checkbox" id="underline">
+                            <label for="underline">Underline</label>
+                            <input type="checkbox" id="italic">
+                            <label for="italic">Italic</label>
+                        </div>
+                        <div class="options">
+                            <h3 style="margin-bottom: 0px;">Options:</h3>
+                            <input type="checkbox" id="reloadWhenLogout">
+                            <label for="reloadWhenLogout">Reload pages when logout</label>
+                        </div>
+                        <div id="pluginOptionsMessage"></div>
+                        <button type="button" id="saveOptions" class="button btn btn-xs btn-default">Save plugin options</button>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row" data-toggle="collapse" href="#config" id="configCollapse">
+                <h2>Save/load config</h2>
+            </div>
+            <div class="row panel-collapse collapse" id="config">
+                <div class="col-md-6 col-lg-6 col-sm-6 createConfigFile">
+                    <fieldset>
+                        <legend><h2>Save config:</h2></legend>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="saveEngineHost" checked>
+                                        <label for="saveEngineHost">Save Engine hostname</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="saveEngineLogin" checked>
+                                        <label for="saveEngineLogin">Save Engine login</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="saveFinderHost" checked>
+                                        <label for="saveFinderHost">Save Finder hostname</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="saveScores" checked>
+                                        <label for="saveScores">Save Score list</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="saveWhitelist" checked>
+                                        <label for="saveWhitelist">Save whitelist</label></br>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="saveDeviceInfos" checked>
+                                        <label for="saveDeviceInfos">Save device info list</label></br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="savePluginOptions" checked>
+                                        <label for="savePluginOptions">Save plugin options</label>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="saveConfigMessage"></div>
+
+                        <button type="button" id="createConfigFile" class="button btn btn-xs btn-default" style="position: absolute;">Create file</button>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-6 loadConfigFile">
+                    <fieldset>
+                        <legend><h2>Load config:</h2></legend>
+
+                        <div class="loadOptions">
+                            <input type="checkbox" id="overwriteConfig" checked>
+                            <label for="overwriteConfig">Overwrite current config?</label>
+                            <br />
+                            <input type="checkbox" id="importOnlyScores">
+                            <label for="importOnlyScores">Import only the Scores?</label>
+                        </div>
+
+                        <input type="file" id="localConfigFile" accept=".json,text/plain" class="button btn btn-xs btn-default">
+                        <div id="loadConfigMessage"></div>
+                        <button type="button" id="loadConfigFile" class="button btn btn-xs btn-default" style="position: absolute;">Load file</button>
+                    </fieldset>
+                </div>
+            </div>
+
+
+        </div>
+
+        <script src="../dist/jquery-3.2.1.min.js"></script>
+        <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    </body>
+</html>

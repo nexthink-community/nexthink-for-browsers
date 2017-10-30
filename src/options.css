@@ -1,0 +1,287 @@
+body{
+    color: rgba(34, 34, 34, 1);
+    font-size: 12px !important;
+    margin: auto;
+}
+
+button{
+    color: rgba(0, 196, 208, 1) !important;
+}
+
+button:hover {
+    background-color: inherit !important;
+    border-color: rgba(0, 196, 208, 1) !important;
+    color: rgba(0, 196, 208, 1) !important;
+}
+
+.form-control{
+    font-size: 12px !important;
+}
+
+.form-control[disabled]{
+    color: #CCC !important;
+    background-color: unset !important;
+}
+
+.content{
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin: auto;
+    padding: 10px 0px;
+    text-align: left;
+    width: 900px;
+}
+
+.content>div{
+    margin: 0 5px;
+    padding: 5px 20px;
+}
+
+.content p{
+    font-weight: bold;
+}
+
+.content table{
+    margin: auto;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.content textarea{
+    padding: 1px;
+    width: 365px;
+}
+
+.login input{
+    margin-bottom: 5px;
+}
+
+.title {
+    color: #a8a7a7;
+    margin-top: 15px !important;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.title>span {
+    background: white;
+    padding-right: 5px;
+}
+
+.title:before {
+    border-top: 1px solid #dfdfdf;
+    content:"";
+    margin: 0 auto;
+    position: absolute;
+    top: 12px; left: 0; right: 0; bottom: 0;
+    width: 95%;
+    z-index: -1;
+}
+
+.errorMessage{
+    color: red;
+    font-style: italic;
+}
+
+.table{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-collapse: inherit;
+}
+
+.deviceScoreContainer,
+.deviceInfoContainer{
+    min-height: 80px;
+}
+
+.rightPanel{
+    display: block;
+    position: absolute;
+    right: -15px;
+    cursor: pointer;
+}
+
+.rightPanel.up{
+    top: 0px;
+    background-image: url("../img/icons/up.png");
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+}
+
+.rightPanel.up:hover{
+    background-image: url("../img/icons/up_hover.png");
+}
+
+.rightPanel.up[disabled],
+.rightPanel.up:hover[disabled]{
+    background-image: url("../img/icons/up_disabled.png");
+}
+
+.rightPanel.down{
+    top: 25px;
+    background-image: url("../img/icons/down.png");
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+}
+
+.rightPanel.down:hover{
+    background-image: url("../img/icons/down_hover.png");
+}
+
+.rightPanel.down[disabled],
+.rightPanel.down:hover[disabled]{
+    background-image: url("../img/icons/down_disabled.png");
+}
+
+.rightPanel.delete{
+    top: 50px;
+    background-image: url("../img/icons/delete.png");
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+}
+
+.rightPanel.delete:hover{
+    background-image: url("../img/icons/delete_hover.png");
+}
+
+.rightPanel.delete[disabled],
+.rightPanel.delete:hover[disabled]{
+    background-image: url("../img/icons/delete_disabled.png");
+}
+
+#loginMessage, #finderMessage{
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+#engine, #login, #finder{
+    float: left;
+    padding: 0px 5px;
+}
+
+#addDeviceInfo {
+    display: block;
+    position: absolute;
+    right: -80px;
+    bottom: 0px;
+    height: 34px;
+}
+
+#score{
+    width: -webkit-fill-available;
+    width: -moz-available;
+    resize: vertical;
+    max-height: 45px;
+    min-height: 34px;
+    height: 34px;
+}
+
+#deviceScoreList tr td:first-child{
+    width: 270px;
+}
+
+#deviceScoreList tr td,
+#deviceInfoList tr td{
+    border: none;
+    height: 25px;
+    padding: 0px;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+#deviceScoreList tr.selected,
+#deviceInfoList tr.selected{
+    background: rgba(0, 196, 208, 1);
+    color: white;
+}
+
+#deviceInfoList tr td:first-child,
+#engines tr td:first-child{
+    width: 300px;
+}
+
+#deviceScoreList tr td:last-child,
+#deviceInfoList tr td:last-child,
+#engines tr td:last-child {
+    width: 65px;
+}
+
+#deviceInfoMessage{
+    position: absolute;
+    right: -400px;
+    bottom: 0px;
+    width: 300px;
+    min-height: 34px;
+    color: red;
+    font-style: italic;
+    display: table;
+}
+
+#deviceInfoMessage>span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#deviceInfoList tr td:first-child{
+    text-transform: capitalize;
+}
+
+#removeAllScores, #removeFromWhitelist, #removeAllSites, #removeAllDeviceInfo{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#config fieldset{
+    height: 250px;
+}
+
+#config button,
+#connection button{
+    bottom: 5px;
+    left: 10px;
+    float: left;
+}
+
+#loadScoreFile{
+    float: left;
+}
+
+#scoreFileMessage{
+    float: left;
+    margin-left: 10px;
+    min-height: 30px;
+    line-height: 30px;
+}
+
+#loadConfigFile,
+#createConfigFile{
+    float: left;
+}
+
+#createConfigFile{
+    margin-left: 5px;
+}
+
+#configFileMessage{
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+fieldset{
+    min-height: 150px;
+}
+
+input[type="file"]{
+    width: 100%;
+}
+
+.col-lg-6, .col-md-6, .col-sm-6{
+    padding-left: unset !important;
+}
