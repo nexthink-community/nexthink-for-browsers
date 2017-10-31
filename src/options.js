@@ -15,22 +15,35 @@ strings = {
     configurationFileCreated: "Config file created",
     configurationFileLoaded: "Config file loaded",
     credentialsSaved: "Credentials saved",
-    devicePropertyAlreadySaved: "device info already saved",
+    devicePropertyAlreadySaved: "device property already exists",
     devicePropertyNotExist: "does not exist",
     enterHostname: "Please enter a hostname",
     enterPassword: "Please enter a password",
     enterUsername: "Please enter a username",
     errorWhileReading: "Error while reading file",
     invalidCredentials: "Invalid credentials",
-    invalidCertificate: "Check if your browser can access API: ",
+    invalidCertificate: "Check your browser can access the API: ",
     notConnected: "Error: not connected to the API",
     scoreFileLoaded: "Score file loaded",
     selectFile: "Please select a file",
     selectValideJSONFile: "Please select a valid JSON file",
     selectValidScoreFile: "Please select a valid score file",
-    tryConnection: "Connection...",
+    tryConnection: "Connecting...",
     validCredentials: "Connected"
 };
+
+function setCredentialUIState(state) {
+    if (!state) {
+        document.getElementById("username").setAttribute("disabled", true);
+        document.getElementById("password").setAttribute("disabled", true);
+        document.getElementById("engineHostname").setAttribute("disabled", true);
+    } else {
+        document.getElementById("username").removeAttribute("disabled");
+        document.getElementById("password").removeAttribute("disabled");
+        document.getElementById("engineHostname").removeAttribute("disabled");
+    }
+
+}
 
 /*
 * Use to change the color of the selected row.
@@ -777,8 +790,7 @@ function logout() {
     document.getElementById("loginMessage").innerHTML = "";
     document.getElementById("signIn").style.display = "block";
     document.getElementById("signOut").style.display = "none";
-    document.getElementById("username").removeAttribute("disabled");
-    document.getElementById("password").removeAttribute("disabled");
+    setCredentialUIState(true);
 
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
@@ -808,15 +820,6 @@ function main() {
     document.getElementById('downScore').addEventListener('click', downDeviceScore, false);
 
     document.getElementById('finderHostname').addEventListener('blur', saveFinderOptions, false);
-    document.getElementById('engineHostname').addEventListener('input', function () {
-        if (actualBrowser.extension.getBackgroundPage().connected) {
-            if (this.value === connectionData.engineHostname) {
-                document.getElementById("signIn").style.display = "none";
-            } else {
-                document.getElementById("signIn").style.display = "block";
-            }
-        }
-    }, false);
     document.getElementById('scoreFile').addEventListener('change', loadScoreFile, false);
     document.getElementById('localConfigFile').addEventListener('change', loadConfigFile, false);
 
@@ -885,8 +888,7 @@ function main() {
     if (savedDeviceOptions.length !== 0) { savedDeviceOptions.forEach(function (data) { addDeviceInfoToTable(data); }); }
     if (actualBrowser.extension.getBackgroundPage().connected) {
         document.getElementById("signIn").style.display = "none";
-        document.getElementById("username").setAttribute("disabled", true);
-        document.getElementById("password").setAttribute("disabled", true);
+        setCredentialUIState(false);
     } else {
         document.getElementById("signOut").style.display = "none";
     }
@@ -908,13 +910,12 @@ function main() {
                         document.getElementById("signIn").style.display = "none";
                         document.getElementById("signOut").style.display = "block";
                         document.getElementById("signIn").removeAttribute("disabled");
-                        document.getElementById("username").setAttribute("disabled", true);
-                        document.getElementById("password").setAttribute("disabled", true);
+                        setCredentialUIState(false);
                         connectionData = actualBrowser.extension.getBackgroundPage().connectionData;
                     } else {
                         if (request.certError) {
-                            link = "https://" + actualBrowser.extension.getBackgroundPage().connectionData.engineHostname;
-                            link = '<a href="' + link + '">Click here</a>';
+                            link = "https://" + actualBrowser.extension.getBackgroundPage().connectionData.engineHostname + "/2/";
+                            link = '<a href="' + link + '">click here</a>';
                             document.getElementById("loginMessage").innerHTML = strings.invalidCertificate + link;
                         } else if (request.notfound) {
                             document.getElementById("loginMessage").innerHTML = strings.badHostname;
@@ -927,8 +928,7 @@ function main() {
                         document.getElementById("signOut").style.display = "none";
                         document.getElementById("signIn").style.display = "block";
                         document.getElementById("signIn").removeAttribute("disabled");
-                        document.getElementById("username").removeAttribute("disabled");
-                        document.getElementById("password").removeAttribute("disabled");
+                        setCredentialUIState(true);
                         document.getElementById("password").value = "";
                         document.getElementById("password").focus();
                     }
