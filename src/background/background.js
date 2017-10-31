@@ -80,7 +80,6 @@ function saveWhitelist(whitelistedUrl) {
                 tabUrl  = tabsArray[j].url.split("//")[1].split("/")[0].split(":")[0].replace("www.", "");
                 if (tabUrl.indexOf(whitelistedUrl) === 0) {
                     setBrowserActionText("", tabsArray[j].id);
-                    setBrowserActionIcon(false, tabsArray[j].id);
                 }
             }
         }
