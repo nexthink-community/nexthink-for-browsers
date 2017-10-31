@@ -15,16 +15,16 @@ Subsequently, the user can display a floating box with the device data by hoveri
  - Field validation prior to attempting to retrieve data
  - Whitelist to control on which sites the plugin will be functional
  - Works on both Chrome and Firefox
- 
+
 
 ## Installation
-### Firefox: 
+### Firefox:
 Store page: https://addons.mozilla.org/addon/nexthink-for-firefox/
 
-For debugging/development, go to `about:debugging` and select `Load Temporary Add-on`. 
+For debugging/development, go to `about:debugging` and select `Load Temporary Add-on`.
 Select `manifest.json` found in `src/`.
 
-### Chrome: 
+### Chrome:
 Store page: https://chrome.google.com/webstore/detail/gjbpidcnakeejldikpkilidigkakhdme
 
 For debugging/development, go to chrome://extensions/ and check `Developer mode`.
@@ -84,17 +84,28 @@ In order for the plugin to function on both Chrome and Firefox,
 you must use the `src/browserAdapter.js` file.
 Once it is loaded, use this function:
 ```javascript
-actualBrowser = CheckBrowser();
+actualBrowserName = checkBrowser();
 ```
 to get the current browser identity. This will ensure that the right API is used.
 After that, instead of using a browser specific API, use the following:
 ```javascript
-BrowserAdapter(actualBrowser)
+actualBrowser = new BrowserAdapter(actualBrowserName);
+// or
+actualBrowser = new BrowserAdapter(checkBrowser());
 ```
 
 Do not forget to take into consideration API compatibility.
 For more information, go to the link below:
 https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Chrome_incompatibilities
+
+### Publishing without warning
+If you want to publish the plugin without any warning, the 'manifest.json' must
+be edited for both Firefox and Chrome.
+Firefox:
+ - 'options_page' key must be removed
+
+Chrome:
+ - 'applications' key must be removed
 
 ### Data storage
 The connection information is only saved locally. This mean that it is not saved on the user account if he has one, e.g. Firefox Sync or Google Account.
