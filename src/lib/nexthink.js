@@ -63,18 +63,23 @@ function generateDevicesListToGetString(devices) {
 */
 function startRequest(mainURL, log, query, parameters) {
     return new Promise(resolve => {
-        var xhttp = new XMLHttpRequest();
+        try {
+            var xhttp = new XMLHttpRequest();
+            var url = mainURL + "?" + parameters +"&query=" +  encodeURIComponent(query);
+            xhttp.timeout = 10000;
+            xhttp.ontimeout = function () { resolve({status:0}); }
+            xhttp.onload = function () {
+                if (this.status === 200) { resolve(this); }
+                else { resolve({status:0}); }
+            };
+            xhttp.open("GET", url);
+            xhttp.setRequestHeader("Authorization", "Basic " + btoa(log[0]+":"+log[1]));
+            xhttp.onerror = function () { resolve({status:401}); };
+            xhttp.send();
+        } catch (e) {
+            resolve({status:404});
+        }
 
-        var url = mainURL + "?" + parameters +"&query=" +  encodeURIComponent(query);
-        xhttp.timeout = 15000;
-        xhttp.onload = function () {
-            if (this.status === 200) { resolve(this); }
-            else { resolve({status:0}); }
-        };
-        xhttp.open("GET", url);
-        xhttp.setRequestHeader("Authorization", "Basic " + btoa(log[0]+":"+log[1]));
-        xhttp.onerror = function () { resolve({status:0}); };
-        xhttp.send();
     });
 }
 

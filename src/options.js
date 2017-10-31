@@ -10,6 +10,7 @@
 
 var savedScores, savedPayloads, savedWhitelistedURL, savedScoreTreeList, savedDeviceOptions, actualBrowser, actualBrowserName, connectionData, strings;
 strings = {
+    badHostname: "Cannot access hostname",
     canNotLoadFile: "Cannot load file",
     configurationFileCreated: "Config file created",
     configurationFileLoaded: "Config file loaded",
@@ -21,11 +22,13 @@ strings = {
     enterUsername: "Please enter a username",
     errorWhileReading: "Error while reading file",
     invalidCredentials: "Invalid credentials",
+    invalidCertificate: "Check if your browser can access API: ",
     notConnected: "Error: not connected to the API",
     scoreFileLoaded: "Score file loaded",
     selectFile: "Please select a file",
     selectValideJSONFile: "Please select a valid JSON file",
     selectValidScoreFile: "Please select a valid score file",
+    tryConnection: "Connection...",
     validCredentials: "Connected"
 };
 
@@ -502,7 +505,6 @@ function loadScoreFile() {
                     try {
                         getScoresFileData(data);
                     } catch (e) {
-                        console.log(e);
                         document.getElementById('scoreFileMessage').innerHTML = strings.selectValidScoreFile;
                         document.getElementById('scoreFileMessage').classList = "errorMessage";
                     }
@@ -532,12 +534,6 @@ function saveFinderOptions() {
         "finderHostname": document.getElementById("finderHostname").value,
         "showFinderLink": true
     };
-
-    // Check if inputs are in the correct format
-    if (values.finderHostname === "" || values.finderHostname === null || values.finderHostname === undefined) {
-        document.getElementById("finderMessage").innerHTML = strings.enterHostname;
-        return;
-    }
 
     finderInfo = values.finderHostname.split(':');
     if (finderInfo.length === 2) {
@@ -575,7 +571,7 @@ function savePassword(key, pass) {
     }
     d.setMonth(newMonth);
     actualBrowser.storage.local.set({
-        "key": [JSON.stringify(key), d.toDateString()]
+        "key": JSON.stringify(key)
     });
     actualBrowser.storage.local.set({
         "password": pass
@@ -598,7 +594,7 @@ function saveLogin() {
         "username": document.getElementById("username").value
     };
 
-    // Check if inputs are in the correct format
+    // Check if inputs are not null
     if (values.engineHostname === null || values.engineHostname === undefined || values.engineHostname === "") {
         document.getElementById("loginMessage").innerHTML = strings.enterHostname;
         document.getElementById("loginMessage").classList = "errorMessage";
@@ -617,17 +613,12 @@ function saveLogin() {
     }
 
     try {
+        connectionData = undefined;
         if (connectionData === undefined || connectionData === null || connectionData.engineHostname !== values.engineHostname || connectionData.username !== values.username || decryptString(connectionData.key, connectionData.password) !== password) {
             key = getGoodEncryptionKey(password);
             encryptedPass = encryptString(key, password);
             savePassword(key, encryptString(key, password));
 
-            actualBrowser.storage.local.set(
-                {
-                    "engineHostname": values.engineHostname,
-                    "username": values.username
-                }
-            );
             actualBrowser.runtime.sendMessage({data: JSON.stringify([]), subject: "deviceOptions"});
 
             message = {
@@ -636,13 +627,12 @@ function saveLogin() {
                 "password": encryptedPass,
                 "key": key
             };
-            connectionData = message;
+            //connectionData = message;
             actualBrowser.runtime.sendMessage({ data: message, subject: "connected" });
-            document.getElementById("loginMessage").innerHTML = strings.credentialsSaved;
+            document.getElementById("loginMessage").innerHTML = strings.tryConnection;
             document.getElementById("loginMessage").classList = "";
 
-            document.getElementById("signOut").style.display = "block";
-            document.getElementById("signIn").style.display = "none";
+            document.getElementById("signIn").setAttribute("disabled", true);
 
             document.getElementById("username").setAttribute("disabled", true);
             document.getElementById("password").setAttribute("disabled", true);
@@ -818,6 +808,15 @@ function main() {
     document.getElementById('downScore').addEventListener('click', downDeviceScore, false);
 
     document.getElementById('finderHostname').addEventListener('blur', saveFinderOptions, false);
+    document.getElementById('engineHostname').addEventListener('input', function () {
+        if (actualBrowser.extension.getBackgroundPage().connected) {
+            if (this.value === connectionData.engineHostname) {
+                document.getElementById("signIn").style.display = "none";
+            } else {
+                document.getElementById("signIn").style.display = "block";
+            }
+        }
+    }, false);
     document.getElementById('scoreFile').addEventListener('change', loadScoreFile, false);
     document.getElementById('localConfigFile').addEventListener('change', loadConfigFile, false);
 
@@ -842,10 +841,11 @@ function main() {
     });
 
     if (actualBrowser.extension.getBackgroundPage().connected) {
+        connectionData = actualBrowser.extension.getBackgroundPage().connectionData;
         dataToGet = ["password", "key", "username"];
         actualBrowser.storage.local.get(dataToGet, function (data) {
             try {
-                document.getElementById("password").value = decryptString(JSON.parse(data.key[0]), data.password);
+                document.getElementById("password").value = decryptString(data.key, data.password);
                 document.getElementById("username").value = data.username;
             } catch (ignore) { }
         });
@@ -893,7 +893,7 @@ function main() {
 
     actualBrowser.runtime.onMessage.addListener(
         function (request, sender) {
-            var extensionId;
+            var extensionId, link;
             // Make sure the sender is the plugin him-self
             if (actualBrowserName === "Firefox") {
                 extensionId = sender.extensionId;
@@ -907,15 +907,26 @@ function main() {
                         document.getElementById("loginMessage").innerHTML = strings.validCredentials;
                         document.getElementById("signIn").style.display = "none";
                         document.getElementById("signOut").style.display = "block";
+                        document.getElementById("signIn").removeAttribute("disabled");
                         document.getElementById("username").setAttribute("disabled", true);
                         document.getElementById("password").setAttribute("disabled", true);
+                        connectionData = actualBrowser.extension.getBackgroundPage().connectionData;
                     } else {
-                        document.getElementById("loginMessage").innerHTML = strings.invalidCredentials;
+                        if (request.certError) {
+                            link = "https://" + actualBrowser.extension.getBackgroundPage().connectionData.engineHostname;
+                            link = '<a href="' + link + '">Click here</a>';
+                            document.getElementById("loginMessage").innerHTML = strings.invalidCertificate + link;
+                        } else if (request.notfound) {
+                            document.getElementById("loginMessage").innerHTML = strings.badHostname;
+                        } else {
+                            document.getElementById("loginMessage").innerHTML = strings.invalidCredentials;
+                        }
                         actualBrowser.extension.getBackgroundPage().connected = false;
                         actualBrowser.storage.local.remove(["username", "password", "key"]);
                         document.getElementById("loginMessage").classList = "errorMessage";
                         document.getElementById("signOut").style.display = "none";
                         document.getElementById("signIn").style.display = "block";
+                        document.getElementById("signIn").removeAttribute("disabled");
                         document.getElementById("username").removeAttribute("disabled");
                         document.getElementById("password").removeAttribute("disabled");
                         document.getElementById("password").value = "";

@@ -283,9 +283,9 @@ function checkConnectionWithEngine() {
         // Create a simple query
         mainURL = "https://" + connectionData.engineHostname + "/2/query";
         var parameters = "format=json", log = [connectionData.username, decryptString(connectionData.key, connectionData.password)];
-
         getDevicesList(mainURL, log, parameters).then(function (xhttpData) {
             if (xhttpData.status === 200) {
+                actualBrowser.storage.local.set(connectionData);
                 var jsonDeviceList = JSON.parse(xhttpData.responseText), i = 0;
 
                 for (i = 0; i < jsonDeviceList.length; i += 1) { availableDevices.push(jsonDeviceList[i].name); }
@@ -321,7 +321,13 @@ function checkConnectionWithEngine() {
 
             } else {
                 setContextMenu();
-                actualBrowser.runtime.sendMessage({data: false, subject: "credentialsState"});
+                if (xhttpData.status === 401) {
+                    actualBrowser.runtime.sendMessage({data: false, subject: "credentialsState", certError: true});
+                } else if (xhttpData.status === 404) {
+                    actualBrowser.runtime.sendMessage({data: false, subject: "credentialsState", notfound: true});
+                } else {
+                    actualBrowser.runtime.sendMessage({data: false, subject: "credentialsState"});
+                }
                 actualBrowser.notifications.create(
                     "NXTP_Connect_Error",
                     {
@@ -347,7 +353,6 @@ function checkConnectionWithEngine() {
                 });
             }
             if (dataComplete) {
-                data.key = JSON.parse(data.key[0]);
                 connectionData = data;
                 checkConnectionWithEngine();
             }
