@@ -281,7 +281,7 @@ function checkConnectionWithEngine() {
     if (connectionData !== null && connectionData !== undefined) {
         // Create a simple query
         mainURL = "https://" + connectionData.engineHostname + "/2/query";
-        var parameters = "format=json", log = [connectionData.username, decryptString(connectionData.key, connectionData.password)];
+        var parameters = "format=json&platform=windows&platform=mac_os", log = [connectionData.username, decryptString(connectionData.key, connectionData.password)];
         getDevicesList(mainURL, log, parameters).then(function (xhttpData) {
             if (xhttpData.status === 200) {
                 actualBrowser.storage.local.set(connectionData);
