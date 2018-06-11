@@ -75,8 +75,8 @@ function CheckConnectionWithEngine(){
         // Create a simple query
         var query = "(select (name) (from device) (order_by name asc))";
         mainURL = "https://" + connectionData["engineHostname"] + "/2/query";
-        var url = mainURL + "?format=json&query=" + query;
-        var parameters = "format=json";
+        var url = mainURL + "?query=" + query;
+        var parameters = "format=json&platform=windows&platform=mac_os";
         var log = [connectionData["username"], DecryptString(connectionData["key"], connectionData["password"])]
         GetDevicesList(mainURL, log, parameters).then(function (response) {
             xhttpData = response;
