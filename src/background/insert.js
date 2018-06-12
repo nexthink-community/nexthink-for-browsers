@@ -48,21 +48,38 @@ function bodyExplorer(node) {
         if (node.contentEditable !== null && node.contentEditable !== "inherit") { divEditable = node.contentEditable; }
     } catch (ignore) {}
 
-    if (nodeID !== "preloadDiv" && !divEditable && node.getAttribute("autoid") !== "_lvv_7" && !node.classList.contains(className) && (!node.classList.contains("zA") && !node.classList.contains("yO"))) {
+    if (nodeID !== "preloadDiv" && node.getAttribute("autoid") !== "_lvv_7" && !node.classList.contains(className) && (!node.classList.contains("zA") && !node.classList.contains("yO"))) {
         if (nodeID !== "dataPopup" && node.tagName !== "BODY") {
             // Remove all the children text
             elementText = node.innerHTML.replace(new RegExp(/[\t\n\r]/, 'g'), ' ').replace(new RegExp(/,/, 'g'), ' ').replace(new RegExp(/<.*>/, 'g'), '').trim();
             try {
-                if (node.value) {
-                    if (devicesName.indexOf(node.value) !== -1) {
-                        if (!node.onmouseover && !node.onmouseout) {
-                            node.onmouseover = function (e) { setPopup(e, node.ownerDocument); };
-                            node.onmouseout = function (e) { checkIfNeedToShowPopup(e, node.ownerDocument); };
-                            addDisplayElement(node.ownerDocument, deviceTables[devicesName.indexOf(node.value)][1]);
-                        }
+                if(divEditable) {
+                  splitArray = node.firstChild.nodeValue.split(" ");
+                  for (i = 0; i < splitArray.length; i++) {
+                    var splitedPart = splitArray[i];
+                    var deviceIndex = devicesName.indexOf(splitedPart);
+                    node.value = deviceTables[deviceIndex][0];
+
+                    // If device found then proceed to the editing
+                    if (deviceIndex !== -1) {
+                      if (!node.onmouseover && !node.onmouseout) {
+                          node.onmouseover = function (e) { setPopup(e, node.ownerDocument); };
+                          node.onmouseout = function (e) { checkIfNeedToShowPopup(e, node.ownerDocument); };
+                          addDisplayElement(node.ownerDocument, deviceTables[deviceIndex][1]);
+                      }
+                    }
+                  }
+                }
+                if ((node.value && devicesName.indexOf(node.value) !== -1)) {
+                    if (!node.onmouseover && !node.onmouseout) {
+                        node.onmouseover = function (e) { setPopup(e, node.ownerDocument); };
+                        node.onmouseout = function (e) { checkIfNeedToShowPopup(e, node.ownerDocument); };
+                        addDisplayElement(node.ownerDocument, deviceTables[devicesName.indexOf(node.value)][1]);
                     }
                 }
-            } catch (ignore) { }
+            } catch (e) {console.log(e); }
+
+            if(divEditable) return;
             // If element have text
             if (elementText !== "") {
                 splitArray = elementText.split(" ");
@@ -83,6 +100,7 @@ function bodyExplorer(node) {
 
                             deviceName = deviceTables[deviceIndex][0];
                             elementToAdd = createDeviceElement(deviceName);
+                            if (node.nodeName === "TEXTAREA") return;
 
                             for (j = 0; j < splitedElement.length; j += 1) {
                                 elementNewHTML += splitedElement[j];

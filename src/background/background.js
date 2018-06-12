@@ -215,9 +215,9 @@ function setDevicesPopup(devicesData, sendToPopup, tabID) {
         deviceTables.push(createPopupTab(devicesData[i], scoreTreeList, deviceOptions, finderOptions));
     }
 
-    if (sendToPopup) {
+    // if (sendToPopup) {
         actualBrowser.runtime.sendMessage({data: JSON.stringify(deviceTables), subject: "devicesPopup"});
-    }
+    // }
 
     styles = "";
     try { if (deviceFoundStyle.bold) { styles += " bold"; } } catch (ignore) {}
@@ -474,7 +474,6 @@ function readContent(content, tabID, fullPage) {
                         content.forEach(function (content) {
                             if (regex.test(content.trim()) && availableDevices.includes(content.trim())) { devices.push(content.trim()); }
                         });
-
                         devices = devices.filter(function (el, i, arr) { return arr.indexOf(el) === i; });
 
                         if (devices.length !== 0) {

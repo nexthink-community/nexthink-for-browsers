@@ -13,24 +13,30 @@ observer = new MutationObserver(function (mutations) {
     "use strict";
     var textToSend = "", toSend;
     mutations.forEach(function (mutation) {
-        if (mutation.type === "childList") {
+        if (mutation.type === "childList" || mutation.type === "characterData") {
             if (mutation.target !== "head" && mutation.target !== "style") {
-                mutation.addedNodes.forEach(function (node) {
-                    if (node.nodeName !== "SCRIPT") {
-                        var tempText, parser, dom;
-                        tempText = "";
-                        try {
-                            if (!node.classList.contains(className)) { tempText = (node.innerText + " "); }
-                        } catch (e) {
-                            try {
-                                if (!node.classList.contains(className)) { tempText = (node.wholeText + " "); }
-                            } catch (ignore) { }
-                        }
-                        parser = new DOMParser();
-                        dom = parser.parseFromString(tempText, 'text/html');
-                        textToSend += dom.body.textContent;
-                    }
-                });
+                if (mutation.type === "characterData") {
+                  var text = mutation.target.parentNode.firstChild.textContent;
+                  textToSend += text + " ";
+                } else {
+                  mutation.addedNodes.forEach(function (node) {
+                      if (node.nodeName !== "SCRIPT") {
+                          var tempText, parser, dom;
+                          tempText = "";
+                          try {
+                              if (!node.classList.contains(className)) { tempText = (node.innerText + " "); }
+                          } catch (e) {
+                              try {
+                                  if (!node.classList.contains(className)) { tempText = (node.wholeText + " "); }
+                              } catch (ignore) { }
+                          }
+                          parser = new DOMParser();
+                          dom = parser.parseFromString(tempText, 'text/html');
+                          textToSend += dom.body.textContent;
+                      }
+                  });
+                }
+
             }
         }
     });
